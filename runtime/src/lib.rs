@@ -41,6 +41,8 @@ pub use frame_support::{
 /// Import the template pallet.
 pub use pallet_template;
 
+pub use pallet_poe;
+
 /// An index to a block.
 pub type BlockNumber = u32;
 
@@ -266,6 +268,10 @@ impl pallet_template::Trait for Runtime {
 	type Event = Event;
 }
 
+impl pallet_poe::Trait for Runtime {
+  type Event = Event;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime where
@@ -282,7 +288,8 @@ construct_runtime!(
 		TransactionPayment: pallet_transaction_payment::{Module, Storage},
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		// Include the custom logic from the template pallet in the runtime.
-		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
+    TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
+    PoeModule: pallet_poe::{Module, Call, Storage, Event<T>},
 	}
 );
 
